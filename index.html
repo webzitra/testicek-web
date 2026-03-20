@@ -1,1 +1,1360 @@
-<html><body><h1>Generuji...</h1></body></html>
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lavendy - Moderní kavárna v&nbsp;Jindřichově Hradci | Prémiová káva a&nbsp;dezerty</title>
+    <meta name="description" content="Lavendy - stylová kavárna v Jindřichově Hradci s prémiovou kávou, domácími dezerty a útulnou atmosférou. Otevřeno denně od 7:00.">
+    <meta property="og:title" content="Lavendy - Moderní kavárna v Jindřichově Hradci">
+    <meta property="og:description" content="Stylová kavárna s prémiovou kávou, domácími dezerty a útulnou atmosférou v centru Jindřichova Hradce.">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="https://lavendy.webzitra.cz">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "CafeOrCoffeeShop",
+        "name": "Lavendy",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Panská 342",
+            "addressLocality": "Jindřichův Hradec",
+            "postalCode": "377 01",
+            "addressCountry": "CZ"
+        },
+        "telephone": "+420 608 123 456",
+        "openingHours": ["Mo-Su 07:00-21:00"],
+        "priceRange": "$$",
+        "servesCuisine": "Café"
+    }
+    </script>
+
+    <style>
+        :root {
+            --primary: #92400e;
+            --primary-rgb: 146, 64, 14;
+            --primary-light: #a855f7;
+            --primary-dark: #713f12;
+            --primary-glow: rgba(146, 64, 14, 0.2);
+            --bg: #ffffff;
+            --bg-alt: #f8fafc;
+            --bg-dark: #0f172a;
+            --bg-dark-2: #1e293b;
+            --text: #1e293b;
+            --text-light: #f8fafc;
+            --text-muted: #64748b;
+            --surface: #ffffff;
+            --surface-glass: rgba(255,255,255,0.7);
+            --border: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            --shadow-lg: 0 20px 40px -8px rgba(0,0,0,0.15);
+            --radius: 16px;
+            --radius-sm: 8px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: var(--bg);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 clamp(1rem, 4vw, 2rem);
+        }
+
+        /* Animace */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            box-shadow: var(--shadow);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            background-image: linear-gradient(to bottom, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.7) 100%), 
+                            url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1600&h=1000&fit=crop');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            color: #ffffff;
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        .hero .subtitle {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: fadeInUp 0.8s ease 0.4s both;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease 0.6s both;
+        }
+
+        .btn {
+            padding: 14px 32px;
+            border-radius: var(--radius-sm);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: #ffffff;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(146, 64, 14, 0.3), 0 0 20px var(--primary-glow);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #ffffff;
+            border: 2px solid #ffffff;
+        }
+
+        .btn-secondary:hover {
+            background: #ffffff;
+            color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255,255,255,0.2);
+        }
+
+        .hero-stats {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 3rem;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(12px);
+            padding: 2rem 3rem;
+            border-radius: var(--radius);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #ffffff;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.8);
+            margin-top: 0.5rem;
+        }
+
+        /* Sections */
+        .section {
+            padding: clamp(3rem, 8vw, 6rem) 0;
+        }
+
+        .section-dark {
+            background: var(--bg-dark);
+            color: var(--text-light);
+        }
+
+        .section-alt {
+            background: var(--bg-alt);
+        }
+
+        .section-badge {
+            display: inline-block;
+            background: var(--primary-glow);
+            color: var(--primary);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .section-title {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin-bottom: 3rem;
+        }
+
+        .section-dark .section-subtitle {
+            color: rgba(255,255,255,0.8);
+        }
+
+        /* Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .grid-3 {
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+
+        .grid-2 {
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        }
+
+        /* Cards */
+        .card {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 2rem;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-light);
+        }
+
+        .card-dark {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .card-icon {
+            width: 3.5rem;
+            height: 3.5rem;
+            background: var(--primary-glow);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .card-text {
+            color: #475569;
+            line-height: 1.7;
+        }
+
+        .card-dark .card-text {
+            color: rgba(255,255,255,0.85);
+        }
+
+        .card-price {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-top: 1rem;
+        }
+
+        /* Menu */
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .menu-item:last-child {
+            border-bottom: none;
+        }
+
+        .menu-details h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+        }
+
+        .menu-details p {
+            color: rgba(255,255,255,0.8);
+            font-size: 0.9rem;
+        }
+
+        .menu-price {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary-light);
+        }
+
+        /* Reviews */
+        .review-card {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 2rem;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+        }
+
+        .review-stars {
+            color: #f59e0b;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .review-text {
+            color: #334155;
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .review-author {
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        /* FAQ */
+        .faq-item {
+            background: var(--surface);
+            border-radius: var(--radius-sm);
+            margin-bottom: 1rem;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            background: var(--bg-alt);
+        }
+
+        .faq-question {
+            width: 100%;
+            padding: 1.5rem;
+            border: none;
+            background: none;
+            text-align: left;
+            font-weight: 600;
+            font-size: 1.05rem;
+            color: #1e293b;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-icon {
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 200px;
+            padding: 0 1.5rem 1.5rem;
+        }
+
+        .faq-answer p {
+            color: #475569;
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        /* Contact */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .contact-info {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: var(--radius);
+            padding: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .contact-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            background: var(--primary-glow);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .contact-details h4 {
+            color: #ffffff;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .contact-details p {
+            color: rgba(255,255,255,0.8);
+            margin: 0;
+        }
+
+        .contact-form {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: var(--radius);
+            padding: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px;
+            border-radius: var(--radius-sm);
+            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.1);
+            color: #ffffff;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(255,255,255,0.6);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--primary-glow);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-submit {
+            width: 100%;
+            padding: 16px;
+            background: var(--primary);
+            color: #ffffff;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .form-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(146, 64, 14, 0.3), 0 0 20px var(--primary-glow);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--bg-dark);
+            color: var(--text-light);
+            padding: 3rem 0 1.5rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            margin-bottom: 0.5rem;
+            display: block;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary-light);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 1.5rem;
+            text-align: center;
+            color: rgba(255,255,255,0.6);
+            font-size: 0.9rem;
+        }
+
+        .footer-bottom a {
+            color: var(--primary-light);
+            text-decoration: none;
+        }
+
+        /* Back to top */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 3rem;
+            height: 3rem;
+            background: var(--primary);
+            color: #ffffff;
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-2px) rotate(360deg);
+            box-shadow: 0 8px 25px rgba(146, 64, 14, 0.3);
+        }
+
+        /* Mobile responsivity */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--surface);
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: var(--shadow);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-toggle {
+                display: block;
+            }
+
+            .hero-stats {
+                position: static;
+                transform: none;
+                margin-top: 2rem;
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1.5rem;
+            }
+
+            .hero-stats .stat {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+            }
+
+            .stat-number {
+                font-size: 1.5rem;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-cta {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 280px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-stats {
+                padding: 1rem;
+            }
+
+            .stat {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        /* Staggered animations */
+        .grid .card:nth-child(1) { transition-delay: 0.1s; }
+        .grid .card:nth-child(2) { transition-delay: 0.2s; }
+        .grid .card:nth-child(3) { transition-delay: 0.3s; }
+        .grid .card:nth-child(4) { transition-delay: 0.4s; }
+        .grid .card:nth-child(5) { transition-delay: 0.5s; }
+        .grid .card:nth-child(6) { transition-delay: 0.6s; }
+    </style>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <div class="nav-container">
+                <a href="#" class="logo">Lavendy</a>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#home">Domů</a></li>
+                    <li><a href="#about">O&nbsp;nás</a></li>
+                    <li><a href="#menu">Menu</a></li>
+                    <li><a href="#reviews">Recenze</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                    <li><a href="#contact">Kontakt</a></li>
+                </ul>
+                <button class="nav-toggle" id="navToggle">☰</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Vítejte v&nbsp;kavárně Lavendy</h1>
+                <p class="subtitle">Objevte svět prémiových káv a&nbsp;domácích dezertů v&nbsp;útulné atmosféře historického centra Jindřichova Hradce</p>
+                <div class="hero-cta">
+                    <a href="#menu" class="btn btn-primary">Prohlédnout menu</a>
+                    <a href="#contact" class="btn btn-secondary">Rezervovat stůl</a>
+                </div>
+            </div>
+        </div>
+        <div class="hero-stats animate-on-scroll">
+            <div class="stat">
+                <span class="stat-number" data-count="150">0</span>
+                <span class="stat-label">druhů kávy</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number" data-count="5">0</span>
+                <span class="stat-label">let zkušeností</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number" data-count="2500">0</span>
+                <span class="stat-label">spokojených hostů</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section" id="about">
+        <div class="container">
+            <div class="animate-on-scroll">
+                <span class="section-badge">Naše příběh</span>
+                <h2 class="section-title">O&nbsp;kavárně Lavendy</h2>
+                <p class="section-subtitle">Jsme rodinná kavárna, která spojuje tradici s&nbsp;moderním přístupem k&nbsp;přípravě kávy a&nbsp;dezertů</p>
+            </div>
+            
+            <div class="grid grid-2">
+                <div class="card animate-on-scroll">
+                    <div class="card-icon">☕</div>
+                    <h3 class="card-title">Prémiová káva</h3>
+                    <p class="card-text">Používáme pouze ty nejkvalitnější kávová zrna z&nbsp;malých plantáží, která pražíme čerstvě každý týden. Každý šálek je připraven s&nbsp;láskou a&nbsp;precizností našimi certifikovanými baristy.</p>
+                </div>
+                
+                <div class="card animate-on-scroll">
+                    <div class="card-icon">🥧</div>
+                    <h3 class="card-title">Domácí dezerty</h3>
+                    <p class="card-text">Všechny naše dezerty připravujeme denně čerstvé podle tradičních rodinných receptů. Používáme pouze přírodní ingredience a&nbsp;místní produkty od&nbsp;prověřených dodavatelů z&nbsp;regionu.</p>
+                </div>
+                
+                <div class="card animate-on-scroll">
+                    <div class="card-icon">🌿</div>
+                    <h3 class="card-title">Přírodní prostředí</h3>
+                    <p class="card-text">Naše kavárna je navržena s&nbsp;důrazem na&nbsp;přírodní materiály a&nbsp;rostliny. Vytváříme tak oázu klidu v&nbsp;centru města, kde si můžete vychutnat chvilku relaxace.</p>
+                </div>
+                
+                <div class="card animate-on-scroll">
+                    <div class="card-icon">👥</div>
+                    <h3 class="card-title">Rodinná atmosféra</h3>
+                    <p class="card-text">Věříme, že nejlepší káva se pije v&nbsp;dobré společnosti. Proto vytváříme prostředí, kde se každý host cítí jako doma a&nbsp;kde se rodí nová přátelství.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section class="section section-dark" id="menu">
+        <div class="container">
+            <div class="animate-on-scroll">
+                <span class="section-badge">Naše nabídka</span>
+                <h2 class="section-title">Menu</h2>
+                <p class="section-subtitle">Objevte naši pečlivě sestavenou nabídku káv, čajů a&nbsp;domácích dezertů</p>
+            </div>
+
+            <div class="grid grid-3">
+                <div class="card card-dark animate-on-scroll">
+                    <h3 class="card-title">Kávy</h3>
+                    <div class="menu-item">
+                        <div class="menu-details">
+                            <h4>Espresso</h4>
+                            <p>Intenzivní italské espresso</p>
+                        </div>
+                        <span class="menu-price">45 Kč</span>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-details">
+                            <h4>Cappuccino</h4>
+                            <p>Klasické cappuccino s&nbsp;mléčnou pěnou</p>
+                        </div>
+                        <span class="menu-price">65 Kč</span>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-details">
+                            <h4>Flat White</h4>
+                            <p>Australský specialita s&nbsp;mikropěnou</p>
+                        </div>
+                        <span class="menu-price">75 Kč</span>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-details">
+                            <h4>V60 Pour Over</h4>
+                            <p>Ruční příprava Single Origin</p>
+                        </div>
+                        <span class="menu-price">95 Kč</span>
+                    </div>
+                </div>
+
+                <div class="card card-dark animate-on-scroll">
+                    <h3 class="card-title">Dezerty</h3>
+                    <div class="menu-item">
+                        <div class="menu-details">
+                            <h4>Lavender Cheesecake</h4>
+                            <p>Náš specialita s&nbsp;levandulí</p>
+                        </div>
+                        <span class="menu-price">85 Kč</span>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-details">
+                            <h4>Brownie s&nbsp;ořechy</h4>
+                            <p>Čokoládový brownie s&nbsp;pekanovými ořechy</p>
+                        </div>
+                        <span class="menu-price">65 Kč</span>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-details">
+                            <h4>Macarons</h4>
+                            <p>Francouzské makarónky (3 kusy)</p>
+                        </div>
+                        <span class="menu-price">75 Kč</span>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-details">
+                            <h4>Croissant</h4>
+                            <p>Máslový croissant s&nbsp;marmeládou</p>
+                        </div>
+                        <span class="menu-price">45 Kč</span>
+                    </div>
+                </div>
+
+                <div class="card card-dark animate-on-scroll">
+                    <h3 class="card-title">Nápoje</h3>
+                    <div class="menu-item">
+                        <div class="menu-details">
+                            <h4>Matcha Latte</h4>
+                            <p>Japonský zelený čaj s&nbsp;mlékem</p>
+                        </div>
+                        <span class="menu-price">80 Kč</span>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-details">
+                            <h4>Chai Latte</h4>
+                            <p>Kořeněný čaj s&nbsp;mlékem</p>
+                        </div>
+                        <span class="menu-price">70 Kč</span>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-details">
+                            <h4>Horká čokoláda</h4>
+                            <p>Belgická čokoláda se šlehačkou</p>
+                        </div>
+                        <span class="menu-price">75 Kč</span>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-details">
+                            <h4>Fresh pomeranč</h4>
+                            <p>Čerstvě vymačkaný pomerančový džus</p>
+                        </div>
+                        <span class="menu-price">55 Kč</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section class="section" id="reviews">
+        <div class="container">
+            <div class="animate-on-scroll">
+                <span class="section-badge">Recenze</span>
+                <h2 class="section-title">Co říkají naši hosté</h2>
+                <p class="section-subtitle">Přečtěte si, co o&nbsp;nás píší spokojení zákazníci</p>
+            </div>
+
+            <div class="grid grid-3">
+                <div class="review-card animate-on-scroll">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">"Nejlepší káva v&nbsp;Jindřichově Hradci! Atmosféra je úžasná a&nbsp;dezerty jsou jako od&nbsp;babičky. Můžu jen doporučit!"</p>
+                    <div class="review-author">Anna Svobodová</div>
+                </div>
+
+                <div class="review-card animate-on-scroll">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">"Krásné prostředí s&nbsp;levandulovou tématikou. Personál je velmi milý a&nbsp;káva výborná. Rádi se sem vracíme."</p>
+                    <div class="review-author">Petr Novák</div>
+                </div>
+
+                <div class="review-card animate-on-scroll">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">"Lavender Cheesecake je naprostý hit! Nikdy jsem nejedla lepší. Kavárna má skvělou atmosféru pro romantické rande."</p>
+                    <div class="review-author">Klára Dvořáková</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section section-alt" id="faq">
+        <div class="container">
+            <div class="animate-on-scroll">
+                <span class="section-badge">Často kladené otázky</span>
+                <h2 class="section-title">FAQ</h2>
+                <p class="section-subtitle">Odpovědi na&nbsp;nejčastější dotazy našich hostů</p>
+            </div>
+
+            <div style="max-width: 800px; margin: 0 auto;">
+                <div class="faq-item animate-on-scroll">
+                    <button class="faq-question">
+                        Máte bezkofeinovou kávu?
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Ano, nabízíme kvalitní bezkofeinové espresso i&nbsp;filtrovanou kávu. Používáme šetrnou metodu dekofeinizace vodou, která zachovává plnou chuť kávy.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item animate-on-scroll">
+                    <button class="faq-question">
+                        Je možné si rezervovat stůl?
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Rezervace přijímáme telefonicky nebo prostřednictvím našich sociálních sítí. Pro&nbsp;skupiny nad 6&nbsp;osob doporučujeme rezervaci předem.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item animate-on-scroll">
+                    <button class="faq-question">
+                        Máte bezlepkové dezerty?
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Určitě! Připravujeme několik bezlepkových variant našich dezertů. Aktuální nabídku se zeptejte u&nbsp;personálu nebo sledujte na&nbsp;našich sociálních sítích.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item animate-on-scroll">
+                    <button class="faq-question">
+                        Jaká je vaše otevírací doba?
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Jsme otevřeni denně od&nbsp;7:00 do&nbsp;21:00. V&nbsp;letních měsících máme často prodlouženou otevírací dobu až do&nbsp;22:00.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item animate-on-scroll">
+                    <button class="faq-question">
+                        Nabízíte kávu s&nbsp;rostlinným mlékem?
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Samozřejmě! Máme ovesné, mandlové, sójové i&nbsp;kokosové mléko. Všechna rostlinná mléka jsou prémiové kvality a&nbsp;perfektní pro napěnění.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section section-dark" id="contact">
+        <div class="container">
+            <div class="animate-on-scroll">
+                <span class="section-badge">Kontakt</span>
+                <h2 class="section-title">Navštivte nás</h2>
+                <p class="section-subtitle">Těšíme se na&nbsp;vaši návštěvu v&nbsp;našé útulné kavárně</p>
+            </div>
+
+            <div class="contact-grid">
+                <div class="contact-info animate-on-scroll">
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div class="contact-details">
+                            <h4>Adresa</h4>
+                            <p>Panská 342<br>377 01 Jindřichův Hradec</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">📞</div>
+                        <div class="contact-details">
+                            <h4>Telefon</h4>
+                            <p>+420 608 123 456</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">✉️</div>
+                        <div class="contact-details">
+                            <h4>Email</h4>
+                            <p>info@lavendy.cz</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">🕒</div>
+                        <div class="contact-details">
+                            <h4>Otevírací doba</h4>
+                            <p>Po - Ne: 7:00 - 21:00</p>
+                        </div>
+                    </div>
+                </div>
+
+                <form class="contact-form animate-on-scroll" data-netlify="true" name="kontakt">
+                    <div class="form-group">
+                        <label for="name">Jméno a&nbsp;příjmení</label>
+                        <input type="text" id="name" name="name" placeholder="Vaše jméno" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="vas@email.cz" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Telefon</label>
+                        <input type="tel" id="phone" name="phone" placeholder="+420 xxx xxx xxx">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="service">Typ dotazu</label>
+                        <select id="service" name="service" required>
+                            <option value="">Vyberte typ dotazu</option>
+                            <option value="rezervace">Rezervace stolu</option>
+                            <option value="catering">Catering</option>
+                            <option value="akce">Soukromá akce</option>
+                            <option value="jine">Jiné</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Zpráva</label>
+                        <textarea id="message" name="message" placeholder="Vaše zpráva..." required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="form-submit">Odeslat zprávu</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h4>Kavárna Lavendy</h4>
+                    <p>Moderní kavárna v&nbsp;srdci Jindřichova Hradce s&nbsp;tradicí kvality a&nbsp;útulnou atmosférou pro všechny milovníky kávy.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Rychlé odkazy</h4>
+                    <a href="#home">Domů</a>
+                    <a href="#about">O&nbsp;nás</a>
+                    <a href="#menu">Menu</a>
+                    <a href="#reviews">Recenze</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Kontakt</h4>
+                    <p>Panská 342, 377 01 Jindřichův Hradec</p>
+                    <p>+420 608 123 456</p>
+                    <p>info@lavendy.cz</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Otevírací doba</h4>
+                    <p>Pondělí - Neděle</p>
+                    <p>7:00 - 21:00</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 Kavárna Lavendy. Všechna práva vyhrazena. | Vytvořeno přes <a href="https://webzitra.cz" target="_blank">WebZítra.cz</a></p>
+            </div>
+        </div>
+        <div style="text-align:center;padding:12px;font-size:0.75rem;color:var(--text-muted,#999);border-top:1px solid var(--border,#eee);">
+        Vytvořeno na <a href="https://webzitra.cz?ref=free" style="color:var(--primary,#6366f1);text-decoration:none;">WebZítra.cz</a>
+    </div>
+</footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop">↑</button>
+
+    <!-- Cookie Banner -->
+    <div id="cookie-banner" style="position:fixed;bottom:0;left:0;right:0;background:var(--bg-dark);color:var(--text-light);padding:16px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;z-index:9999;font-size:0.85rem;transform:translateY(100%);transition:transform 0.4s ease">
+        <p>Tento web používá cookies. Web vytvořilo <a href="https://webzitra.cz" style="color:var(--primary-light)">WebZítra</a></p>
+        <div style="display:flex;gap:8px"><button onclick="this.closest('#cookie-banner').style.transform='translateY(100%)'" style="padding:8px 20px;border-radius:8px;border:none;background:var(--primary);color:white;cursor:pointer;font-weight:600">Přijmout</button></div>
+    </div>
+
+    <script>
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        let scrolled = false;
+
+        window.addEventListener('scroll', () => {
+            const isScrolled = window.scrollY > 50;
+            if (isScrolled !== scrolled) {
+                scrolled = isScrolled;
+                navbar.classList.toggle('scrolled', scrolled);
+            }
+        });
+
+        // Mobile navigation toggle
+        const navToggle = document.getElementById('navToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        navToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        navLinks.addEventListener('click', (e) => {
+            if (e.target.tagName === 'A') {
+                navLinks.classList.remove('active');
+            }
+        });
+
+        // FAQ accordion
+        document.querySelectorAll('.faq-question').forEach(button => {
+            button.addEventListener('click', () => {
+                const faqItem = button.parentElement;
+                const isActive = faqItem.classList.contains('active');
+
+                // Close all FAQ items
+                document.querySelectorAll('.faq-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+
+                // Open clicked item if it wasn't active
+                if (!isActive) {
+                    faqItem.classList.add('active');
+                }
+            });
+        });
+
+        // Back to top button
+        const backToTop = document.getElementById('backToTop');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Counter animation
+        function animateCounters() {
+            const counters = document.querySelectorAll('[data-count]');
+            
+            counters.forEach(counter => {
+                const target = parseInt(counter.dataset.count);
+                const duration = 2000;
+                const step = target / (duration / 16);
+                let current = 0;
+                
+                const timer = setInterval(() => {
+                    current += step;
+                    if (current >= target) {
+                        counter.textContent = target;
+                        clearInterval(timer);
+                    } else {
+                        counter.textContent = Math.floor(current);
+                    }
+                }, 16);
+            });
+        }
+
+        // Start counter animation when hero stats become visible
+        const heroStatsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters();
+                    heroStatsObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        const heroStats = document.querySelector('.hero-stats');
+        if (heroStats) {
+            heroStatsObserver.observe(heroStats);
+        }
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Cookie banner
+        setTimeout(() => {
+            document.getElementById('cookie-banner').style.transform = 'translateY(0)';
+        }, 2000);
+
+        // Form submission (basic client-side handling)
+        document.querySelector('[data-netlify="true"]').addEventListener('submit', function(e) {
+            // Form will be handled by Netlify
+            console.log('Form submitted');
+        });
+    </script>
+</body>
+</html>
